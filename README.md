@@ -1,8 +1,8 @@
 # IBAN library
 
-[![Build Status](https://img.shields.io/travis/com/RikudouSage/IBAN/master.svg)](https://travis-ci.com/RikudouSage/QrPaymentEU)
-[![Coverage Status](https://img.shields.io/coveralls/github/RikudouSage/IBAN/master.svg)](https://coveralls.io/github/RikudouSage/QrPaymentEU?branch=master)
-[![Download](https://img.shields.io/packagist/dt/rikudou/iban.svg)](https://packagist.org/packages/rikudou/euqrpayment)
+[![Build Status](https://img.shields.io/travis/com/RikudouSage/IBAN/master.svg)](https://travis-ci.com/RikudouSage/IBAN)
+[![Coverage Status](https://img.shields.io/coveralls/github/RikudouSage/IBAN/master.svg)](https://coveralls.io/github/RikudouSage/IBAN?branch=master)
+[![Download](https://img.shields.io/packagist/dt/rikudou/iban.svg)](https://packagist.org/packages/rikudou/iban)
 
 
 ## Installation
