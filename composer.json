@@ -28,9 +28,9 @@
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^2.14",
-    "phpunit/phpunit": "^8.0",
     "phpstan/phpstan": "^0.11.2",
-    "php-coveralls/php-coveralls": "^2.1"
+    "php-coveralls/php-coveralls": "^2.1",
+    "phpunit/phpunit": "^7"
   },
   "scripts": {
     "fixer": "php-cs-fixer fix src --verbose",
