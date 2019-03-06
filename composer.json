@@ -30,7 +30,7 @@
     "friendsofphp/php-cs-fixer": "^2.14",
     "phpunit/phpunit": "^8.0",
     "phpstan/phpstan": "^0.11.2",
-    "phing/phing": "^2.16"
+    "php-coveralls/php-coveralls": "^2.1"
   },
   "scripts": {
     "fixer": "php-cs-fixer fix src --verbose",
