@@ -2,6 +2,8 @@
 
 namespace Rikudou\Iban\Helper;
 
+use Throwable;
+
 trait ToStringIbanTrait
 {
     public function __toString()
@@ -12,7 +14,7 @@ trait ToStringIbanTrait
 
         try {
             return $this->asString();
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             return '';
         }
     }

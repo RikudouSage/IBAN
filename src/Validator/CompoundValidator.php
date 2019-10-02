@@ -2,6 +2,8 @@
 
 namespace Rikudou\Iban\Validator;
 
+use InvalidArgumentException;
+
 class CompoundValidator implements ValidatorInterface
 {
     /**
@@ -12,7 +14,7 @@ class CompoundValidator implements ValidatorInterface
     public function __construct(ValidatorInterface ...$validators)
     {
         if (!count($validators)) {
-            throw new \InvalidArgumentException('At least one validator is required');
+            throw new InvalidArgumentException('At least one validator is required');
         }
         $this->validators = $validators;
     }

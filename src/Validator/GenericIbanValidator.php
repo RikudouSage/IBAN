@@ -2,6 +2,7 @@
 
 namespace Rikudou\Iban\Validator;
 
+use InvalidArgumentException;
 use Rikudou\Iban\Helper\Utils;
 use Rikudou\Iban\Iban\IbanInterface;
 
@@ -31,7 +32,7 @@ class GenericIbanValidator implements ValidatorInterface
 
         try {
             return Utils::bcmod($inverted, '97') === '1';
-        } catch (\InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException $exception) {
             return false;
         }
     }
