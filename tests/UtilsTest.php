@@ -3,6 +3,7 @@
 namespace Rikudou\Iban\Tests;
 
 use InvalidArgumentException;
+use LogicException;
 use PHPUnit\Framework\TestCase;
 use Rikudou\Iban\Helper\Utils;
 
@@ -46,5 +47,11 @@ class UtilsTest extends TestCase
         for($i = 0; $i < 3; $i++) {
             $this->assertEquals('1', Utils::bcmod('011', '02', 2 << $i));
         }
+    }
+
+    public function testInvalidForcedConfiguration()
+    {
+        $this->expectException(LogicException::class);
+        Utils::bcmod('1', '1', 2 << 10);
     }
 }
