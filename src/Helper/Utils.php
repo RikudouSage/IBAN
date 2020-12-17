@@ -2,6 +2,7 @@
 
 namespace Rikudou\Iban\Helper;
 
+use DivisionByZeroError;
 use InvalidArgumentException;
 use LogicException;
 
@@ -22,6 +23,9 @@ class Utils
     {
         $dividend = ltrim($dividend, '0');
         $divisor = ltrim($divisor, '0');
+        if ($divisor === '0') {
+            throw new DivisionByZeroError('Cannot divide by 0');
+        }
         if (!is_numeric($dividend)) {
             throw new InvalidArgumentException('The dividend must be a number');
         }
@@ -62,7 +66,7 @@ class Utils
             && ($ownImplementation === self::BCMOD_USE_BCMATH || $ownImplementation === 0)
         ) {
             /* @noinspection PhpComposerExtensionStubsInspection */
-            return bcmod($dividend, $divisor);
+            return (string) bcmod($dividend, $divisor);
         }
 
         throw new LogicException('Invalid forced implementation');
