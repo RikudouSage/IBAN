@@ -85,7 +85,7 @@ jobs:
       - name: Install PHP
         run: |
           spc -U
-          spc --php-version "7.4" --coverage "xdebug"
+          spc --php-version "7.4" --extensions "bcmath, gmp" --coverage "xdebug"
       - name: Checkout Code
         run: |
           git clone $GITHUB_SERVER_URL/$GITHUB_REPOSITORY .
