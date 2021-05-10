@@ -52,7 +52,7 @@ class CzechIbanAdapter implements IbanInterface
                 $accountNumber = $accountParts[1];
             }
 
-            $numeric = sprintf('%04d%06d%010d%d%d00', $this->bankCode, $accountPrefix, $accountNumber, $part1, $part2);
+            $numeric = sprintf('%04d%06s%010s%d%d00', $this->bankCode, $accountPrefix, $accountNumber, $part1, $part2);
 
             $mod = '';
             foreach (str_split($numeric) as $n) {
@@ -60,7 +60,7 @@ class CzechIbanAdapter implements IbanInterface
             }
             $mod = intval($mod);
 
-            $this->iban = sprintf('%.2s%02d%04d%06d%010d', 'CZ', 98 - $mod, $this->bankCode, $accountPrefix, $accountNumber);
+            $this->iban = sprintf('%.2s%02d%04s%06s%010s', 'CZ', 98 - $mod, $this->bankCode, $accountPrefix, $accountNumber);
         }
 
         return $this->iban;
