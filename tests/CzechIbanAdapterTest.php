@@ -31,6 +31,10 @@ class CzechIbanAdapterTest extends TestCase
                 'acc' => '500114004',
                 'bank' => '2700',
             ],
+            'CZ14 0100 0000 0029 0197 2682' => [
+                'acc' => '2901972682',
+                'bank' => '0100',
+            ],
         ];
 
         foreach ($accounts as $iban => $accountData) {
