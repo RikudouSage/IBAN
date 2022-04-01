@@ -32,11 +32,11 @@ class GenericIbanValidator implements ValidatorInterface
 
         try {
             return Utils::bcmod($inverted, '97') === '1';
-            // @code-coverage-ignore-start
+            // @codeCoverageIgnoreStart
         } catch (InvalidArgumentException $exception) {
             return false;
         }
-        // @code-coverage-ignore-end
+        // @codeCoverageIgnoreEnd
     }
 
     private function getNumericRepresentation(string $string): string
