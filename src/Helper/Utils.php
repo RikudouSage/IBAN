@@ -23,8 +23,11 @@ class Utils
     {
         $dividend = ltrim($dividend, '0');
         $divisor = ltrim($divisor, '0');
-        if ($divisor === '0') {
+        if ($divisor === '') {
             throw new DivisionByZeroError('Cannot divide by 0');
+        }
+        if ($dividend === '') {
+            $dividend = '0';
         }
         if (!is_numeric($dividend)) {
             throw new InvalidArgumentException('The dividend must be a number');

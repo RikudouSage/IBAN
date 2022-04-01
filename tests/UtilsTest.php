@@ -2,6 +2,7 @@
 
 namespace Rikudou\Iban\Tests;
 
+use DivisionByZeroError;
 use InvalidArgumentException;
 use LogicException;
 use PHPUnit\Framework\TestCase;
@@ -53,5 +54,18 @@ class UtilsTest extends TestCase
     {
         $this->expectException(LogicException::class);
         Utils::bcmod('1', '1', 2 << 10);
+    }
+
+    public function testDivisionByZero()
+    {
+        $this->expectException(DivisionByZeroError::class);
+        Utils::bcmod('1', '0');
+    }
+
+    public function testZeroDividend()
+    {
+        self::assertEquals('0', Utils::bcmod('0', '1', Utils::BCMOD_USE_CUSTOM));
+        self::assertEquals('0', Utils::bcmod('0', '1', Utils::BCMOD_USE_BCMATH));
+        self::assertEquals('0', Utils::bcmod('0', '1', Utils::BCMOD_USE_GMP));
     }
 }
