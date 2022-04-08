@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: ['7.3', '7.4']
+        version: ['7.3', '7.4', '8.0', '8.1']
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: ['7.3', '7.4', '8.0']
+        version: ['7.3', '7.4', '8.0', '8.1']
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: ['7.3', '7.4', '8.0']
+        version: ['7.3', '7.4', '8.0', '8.1']
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -81,11 +81,14 @@ jobs:
     name: Test 32 bit php
     runs-on: ubuntu-latest
     container: shivammathur/node:latest-i386
+    strategy:
+      matrix:
+        version: [ '7.3', '7.4', '8.0', '8.1' ]
     steps:
       - name: Install PHP
         run: |
           spc -U
-          spc --php-version "7.4" --extensions "bcmath, gmp" --coverage "xdebug"
+          spc --php-version "${{ matrix.version }}" --extensions "bcmath, gmp" --coverage "xdebug"
       - name: Checkout Code
         run: |
           git clone $GITHUB_SERVER_URL/$GITHUB_REPOSITORY .
