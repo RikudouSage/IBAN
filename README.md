@@ -11,8 +11,7 @@ Via composer: `composer require rikudou/iban`
 
 ## Usage
 
-There are two validators and two iban implementations, one generic and one for
-Czech accounts.
+There are multiple IBAN implementations:
 
 ### Generic IBAN
 
@@ -39,8 +38,8 @@ $iban = new IBAN('CZ5530300000001325090010');
 
 $validator = $iban->getValidator(); // returns instance of GenericIbanValidator
 
-if(!$validator->isValid()) {
-    // do something on invalid iban
+if (!$validator->isValid()) {
+    // do something
 }
 ```
 
@@ -72,7 +71,37 @@ $iban = new CzechIbanAdapter('1325090010', '3030');
 // CzechIbanValidator and GenericIbanValidator
 $validator = $iban->getValidator();
 
-if(!$validator->isValid()) {
+if (!$validator->isValid()) {
+    // do something
+}
+```
+
+### Hungarian IBAN
+
+```php
+<?php
+
+use Rikudou\Iban\Iban\HungarianIbanAdapter;
+
+$iban = new HungarianIbanAdapter('11773016-11111018');
+
+echo $iban->asString(); // prints HU42117730161111101800000000
+```
+
+### Hungarian IBAN validator
+
+```php
+<?php
+
+use Rikudou\Iban\Iban\HungarianIbanAdapter;
+
+$iban = new HungarianIbanAdapter('11773016-11111018');
+
+// returns an instance of CompoundValidator which contains
+// HungarianIbanValidator and GenericIbanValidator
+$validator = $iban->getValidator();
+
+if (!$validator->isValid()) {
     // do something
 }
 ```
