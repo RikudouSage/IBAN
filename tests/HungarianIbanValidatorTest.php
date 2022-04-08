@@ -4,6 +4,7 @@ namespace Rikudou\Iban\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Rikudou\Iban\Iban\HungarianIbanAdapter;
+use Rikudou\Iban\Iban\IBAN;
 use Rikudou\Iban\Validator\HungarianIbanValidator;
 
 class HungarianIbanValidatorTest extends TestCase
@@ -18,6 +19,17 @@ class HungarianIbanValidatorTest extends TestCase
             } catch (\InvalidArgumentException $e) {
                 $this->assertFalse($account['valid'], sprintf('Account number %s should have thrown an InvalidArgumentException, but it did not.', $account['account']));
             }
+        }
+
+        foreach ($this->getIbans() as $ibanAccount) {
+            $iban = new IBAN(str_replace(' ', '', $ibanAccount['iban']));
+            $validator = new HungarianIbanValidator($iban);
+            $this->assertEquals($ibanAccount['valid'], $validator->isValid(), sprintf(
+                'IBAN %s should have been %s but is %s.',
+                $ibanAccount['iban'],
+                $ibanAccount['valid'] ? 'valid' : 'invalid',
+                $validator->isValid() ? 'valid' : 'invalid'
+            ));
         }
     }
 
@@ -75,6 +87,26 @@ class HungarianIbanValidatorTest extends TestCase
             ],
             [
                 'account' => '1234',
+                'valid' => false,
+            ],
+        ];
+    }
+
+    private function getIbans()
+    {
+        return [
+            [
+                'iban' => 'HU38 1091 8001 0000 0117 2115 0000',
+                'valid' => true,
+            ],
+            // wrong length
+            [
+                'iban' => 'HU38 1091 8001 0000 0117 2115 000',
+                'valid' => false,
+            ],
+            // not a hungarian IBAN
+            [
+                'iban' => 'CZ03 0710 0010 1100 1792 9051',
                 'valid' => false,
             ],
         ];
