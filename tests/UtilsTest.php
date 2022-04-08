@@ -45,7 +45,7 @@ class UtilsTest extends TestCase
 
     public function testBcmodLeadingZero()
     {
-        for($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $this->assertEquals('1', Utils::bcmod('011', '02', 2 << $i));
         }
     }
