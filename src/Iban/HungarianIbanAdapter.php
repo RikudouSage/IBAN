@@ -45,13 +45,9 @@ class HungarianIbanAdapter implements IbanInterface
 
             $accountNumber = str_pad($accountNumber, 24, '0');
 
-            $checkString = (string) preg_replace_callback(['/[A-Z]/', '/^[0]+/'], function ($matches) {
-                if (substr($matches[0], 0, 1) !== '0') { // may be multiple leading 0's
-                    return base_convert($matches[0], 36, 10);
-                }
-
-                return '';
-            }, $accountNumber . 'HU00');
+            $checkString = (string) preg_replace_callback('/[A-Z]/', function ($matches) {
+                return base_convert($matches[0], 36, 10);
+            }, ltrim($accountNumber, '0') . 'HU00');
 
             $mod = (int) Utils::bcmod($checkString, '97');
             $code = (string) (98 - $mod);
@@ -74,7 +70,7 @@ class HungarianIbanAdapter implements IbanInterface
     public function getValidator(): ?ValidatorInterface
     {
         return new CompoundValidator(
-            new HungarianIbanValidator($this->account),
+            new HungarianIbanValidator($this),
             new GenericIbanValidator($this)
         );
     }

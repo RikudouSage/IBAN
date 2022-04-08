@@ -3,6 +3,7 @@
 namespace Rikudou\Iban\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Rikudou\Iban\Iban\HungarianIbanAdapter;
 use Rikudou\Iban\Validator\HungarianIbanValidator;
 
 class HungarianIbanValidatorTest extends TestCase
@@ -10,7 +11,13 @@ class HungarianIbanValidatorTest extends TestCase
     public function testIsValid()
     {
         foreach ($this->getAccounts() as $account) {
-            $this->assertEquals($account['valid'], (new HungarianIbanValidator($account['account']))->isValid());
+            try {
+                $iban = new HungarianIbanAdapter($account['account']);
+                $validator = new HungarianIbanValidator($iban);
+                $this->assertEquals($account['valid'], $validator->isValid());
+            } catch (\InvalidArgumentException $e) {
+                $this->assertFalse($account['valid'], sprintf('Account number %s should have thrown an InvalidArgumentException, but it did not.', $account['account']));
+            }
         }
     }
 
@@ -55,7 +62,19 @@ class HungarianIbanValidatorTest extends TestCase
                 'valid' => false,
             ],
             [
+                'account' => '11773016 11111018 0000001',
+                'valid' => false,
+            ],
+            [
                 'account' => '11773016-11111018-000000015',
+                'valid' => false,
+            ],
+            [
+                'account' => '11773016-1111101',
+                'valid' => false,
+            ],
+            [
+                'account' => '1234',
                 'valid' => false,
             ],
         ];

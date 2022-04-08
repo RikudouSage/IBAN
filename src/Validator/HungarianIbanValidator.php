@@ -2,6 +2,8 @@
 
 namespace Rikudou\Iban\Validator;
 
+use Rikudou\Iban\Iban\IbanInterface;
+
 /**
  * @see https://www.ecbs.org/Download/Tr201v3.9.pdf
  */
@@ -14,24 +16,28 @@ class HungarianIbanValidator implements ValidatorInterface
         1,
     ];
 
-    /** @var string */
-    private $accountNumber;
+    /** @var IbanInterface */
+    private $iban;
 
-    public function __construct(string $accountNumber)
+    public function __construct(IbanInterface $iban)
     {
-        $this->accountNumber = (string) preg_replace('/[\s\-]+/', '', $accountNumber);
+        $this->iban = $iban;
     }
 
     public function isValid(): bool
     {
-        if (!in_array(strlen($this->accountNumber), [16, 24])) {
+        $stringIban = strtoupper($this->iban->asString());
+        if (substr($stringIban, 0, 2) !== 'HU') {
             return false;
         }
 
-        $fullAccountNumber = str_pad($this->accountNumber, 24, '0');
+        $accountNumber = substr($stringIban, 4);
+        if (strlen($accountNumber) !== 24) {
+            return false;
+        }
 
-        $bankBranchPart = substr($fullAccountNumber, 0, 8);
-        $accountNumberPart = substr($fullAccountNumber, 8);
+        $bankBranchPart = substr($accountNumber, 0, 8);
+        $accountNumberPart = substr($accountNumber, 8);
 
         return $this->checkGroup($bankBranchPart)
             && $this->checkGroup($accountNumberPart);
