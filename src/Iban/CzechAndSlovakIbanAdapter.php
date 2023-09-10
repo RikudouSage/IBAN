@@ -6,6 +6,9 @@ use Rikudou\Iban\Helper\ToStringIbanTrait;
 use Rikudou\Iban\Validator\GenericIbanValidator;
 use Rikudou\Iban\Validator\ValidatorInterface;
 
+/**
+ * @internal
+ */
 abstract class CzechAndSlovakIbanAdapter implements IbanInterface
 {
     use ToStringIbanTrait;
