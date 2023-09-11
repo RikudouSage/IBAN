@@ -76,6 +76,38 @@ if (!$validator->isValid()) {
 }
 ```
 
+### Slovak IBAN
+
+Construct IBAN from Slovak account number and bank code
+
+```php
+<?php
+
+use Rikudou\Iban\Iban\SlovakIbanAdapter;
+
+$iban = new SlovakIbanAdapter('1325090010', '0900');
+
+echo $iban->asString(); // prints SK5009000000001325090010
+
+```
+
+### Slovak IBAN validator
+
+```php
+<?php
+
+use Rikudou\Iban\Iban\SlovakIbanAdapter;
+
+$iban = new SlovakIbanAdapter('1325090010', '0900');
+
+// currently returns just an instance of GenericIbanValidator
+$validator = $iban->getValidator();
+
+if (!$validator->isValid()) {
+    // do something
+}
+```
+
 ### Hungarian IBAN
 
 ```php
